@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AlbumsApp.Models.Album>
+
+
+<h2>Albums recorded at @ViewBag.StudioName</h2>
+<p>
+    <a asp-action="Add" asp-controller="Album">Create New</a>
+</p>
+<table class="table table-bordered table-striped table-secondary">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Year Produced
+            </th>
+            <th>
+                Rating
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearProduced)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AlbumId">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.AlbumId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

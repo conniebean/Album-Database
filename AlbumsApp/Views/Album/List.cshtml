@@ -1,0 +1,46 @@
+﻿@model List<Album>
+
+@{
+    string title = "All Albums";
+}
+
+<h3>@title</h3>
+
+<partial name="_AddAlbumStudioPartial" />
+
+<div class="row">
+    <table class="table table-bordered table-secondary table-striped col-sm-9">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Year Produced</th>
+                <th>Production Studio</th>
+                <th>Rating</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var album in Model)
+            {
+                <tr>
+                    <td>@album.Name</td>
+                    <td>@album.YearProduced</td>
+                    <td><a asp-route-id="@album.StudioId" asp-action="ViewAlbums" asp-controller="Album">@album.Studio.Name</a></td>
+                    <td>@album.Rating?.ToString("N1")</td>
+                    <td>
+                        <a asp-controller="Album" asp-action="Edit" asp-route-id="@album.AlbumId">Edit</a>
+                        <span class="linkSpacer">|</span>
+                        <a asp-controller="Album" asp-action="DeleteConfirmation" asp-route-id="@album.AlbumId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="col-sm-3">
+        <vc:top-rated-albums num-of-albums-to-display="5"></vc:top-rated-albums>
+    </div>
+    <div>
+        <p>You have visited this page a total of @ViewBag.TotalViews times, @ViewBag.SessionViews of those visits are from this session</p>
+    </div>
+</div>
